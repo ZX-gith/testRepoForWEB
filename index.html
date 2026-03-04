@@ -566,6 +566,10 @@
 <!-- HERO -->
 <div class="hero">
   <div class="moon"></div>
+  
+  <!-- Add Profile Photo -->
+  <img src="your-photo.jpg" alt="Zhixing Ren" style="width:160px; height:160px; border-radius:50%; object-fit:cover; position:relative; z-index:2; margin-bottom:1rem; border: 2px solid var(--red); box-shadow: 0 0 20px rgba(204,17,17,0.3);">
+
   <div class="hero-content">
     <p class="tagline">may i be the moon</p>
     <h1 class="hero-name"><span>Z</span>HI<span>X</span>ING <span>R</span>EN</h1>
@@ -820,6 +824,10 @@
   <a class="vote-cta" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
     <span>Vote for Zhixing Ren</span>
   </a>
+  
+  <!-- Countdown Timer -->
+  <p id="countdown-timer" style="margin-top: 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--red); letter-spacing: 0.1em;"></p>
+  
   <p class="vote-dates">Voting open: Monday 9 March 10:00 — Friday 13 March 12:00</p>
 </div>
 
@@ -830,7 +838,42 @@
     <a href="https://su.nottingham.ac.uk/officer-elections" target="_blank">su.nottingham.ac.uk</a>
     &nbsp;·&nbsp; 🌙 Be the moon.
   </p>
+  
+  <!-- Contact & Social Media -->
+  <p style="margin-top:1rem; font-size: 0.8rem;">
+    <a href="https://instagram.com/zxr_uon" target="_blank">Instagram (@zxr_uon)</a> &nbsp;|&nbsp; 
+    <a href="mailto:eeyzr1@nottingham.ac.uk">Email Me</a>
+  </p>
+  
+  <!-- AI Acknowledgments -->
+  <p style="margin-top:1.5rem; font-size: 0.7rem; color: rgba(136,136,136,0.6);">
+    Special thanks to the contribution of Claude, DeepSeek, and Gemini for assisting with this campaign website.
+  </p>
 </footer>
+
+<!-- JavaScript for Countdown -->
+<script>
+  const voteStartDate = new Date('March 9, 2026 10:00:00').getTime();
+  const timerElement = document.getElementById('countdown-timer');
+
+  const timerInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = voteStartDate - now;
+    
+    if (distance > 0) {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      timerElement.innerHTML = `VOTING OPENS IN: ${days} DAYS ${hours} HOURS`;
+    } else {
+      timerElement.innerHTML = "VOTING IS NOW OPEN!";
+      timerElement.style.color = "var(--white)";
+      timerElement.style.background = "var(--red)";
+      timerElement.style.display = "inline-block";
+      timerElement.style.padding = "0.5rem 1rem";
+      clearInterval(timerInterval);
+    }
+  }, 1000);
+</script>
 
 </body>
 </html>
