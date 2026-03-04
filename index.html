@@ -30,6 +30,20 @@
     cursor: default;
   }
 
+  /* ── SPA PAGE ROUTING ── */
+  .page { 
+    display: none; 
+  }
+  .page.active { 
+    display: block; 
+    animation: fadeIn 0.4s ease-in-out; 
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -127,36 +141,6 @@
     animation: fadeUp 1.2s 0.5s ease both;
   }
 
-  .vote-badge {
-    display: inline-block;
-    border: 1px solid var(--red);
-    padding: 0.8rem 2.5rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.2em;
-    color: var(--red);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    animation: fadeUp 1.2s 0.6s ease both;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .vote-badge::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--red);
-    transform: translateX(-101%);
-    transition: transform 0.3s ease;
-    z-index: -1;
-  }
-
-  .vote-badge:hover { color: var(--white); }
-  .vote-badge:hover::before { transform: translateX(0); }
-
   .scroll-hint {
     position: absolute;
     bottom: 2rem;
@@ -231,13 +215,87 @@
     transition: color 0.2s;
   }
 
-  .nav-links a:hover { color: var(--red); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.vote-link { color: var(--red); font-weight: bold; }
+
+  /* ── HOME NAVIGATION CARDS (SUBPAGES) ── */
+  .home-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 3rem auto 6rem;
+    padding: 0 2rem;
+  }
+
+  .home-nav-card {
+    background: var(--deep);
+    border: 1px solid rgba(204,17,17,0.2);
+    padding: 3rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .home-nav-card:hover {
+    background: #161616;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(204,17,17,0.15);
+  }
+
+  .home-nav-card:hover::before { transform: scaleX(1); }
+
+  .home-nav-card .icon { font-size: 3rem; margin-bottom: 0.5rem; }
+  .home-nav-card h3 { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.1em; }
+  .home-nav-card p { color: var(--grey); font-size: 0.85rem; line-height: 1.5; }
+
+  /* ── BACK BUTTON ── */
+  .back-btn-container {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    padding: 0 2rem;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--red);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(204,17,17,0.3);
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s;
+    font-weight: 600;
+  }
+
+  .back-btn:hover {
+    background: var(--red);
+    color: var(--white);
+  }
 
   /* ── SECTIONS ── */
   section {
     max-width: 900px;
     margin: 0 auto;
-    padding: 5rem 2rem;
+    padding: 3rem 2rem 5rem;
   }
 
   .section-label {
@@ -324,11 +382,7 @@
   }
 
   /* ── RESOURCES ── */
-  #resources { padding-top: 0; }
-
-  .resource-group {
-    margin-bottom: 3rem;
-  }
+  .resource-group { margin-bottom: 3rem; }
 
   .resource-group-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -563,275 +617,300 @@
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="moon"></div>
-  
-  <!-- Add Profile Photo -->
-  <img src="your-photo.jpg" alt="Zhixing Ren" style="width:160px; height:160px; border-radius:50%; object-fit:cover; position:relative; z-index:2; margin-bottom:1rem; border: 2px solid var(--red); box-shadow: 0 0 20px rgba(204,17,17,0.3);">
-
-  <div class="hero-content">
-    <p class="tagline">may i be the moon</p>
-    <h1 class="hero-name"><span>Z</span>HI<span>X</span>ING <span>R</span>EN</h1>
-    <p class="hero-role">VP Education 2026</p>
-    <p class="hero-quote">"Reflecting your voice. Lighting your way."</p>
-    <a class="vote-badge" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
-      Vote 9–13 March →
-    </a>
-  </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</div>
-
-<!-- NAV -->
+<!-- GLOBAL NAV -->
 <nav>
   <div class="nav-logo"><span>Z</span>HIXING REN</div>
   <ul class="nav-links">
-    <li><a href="#manifesto">Manifesto</a></li>
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="#umhd">Mental Health Week</a></li>
-    <li><a href="#vote">Vote</a></li>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#accessibility">Accessibility 🔑</a></li>
+    <li><a href="#resources">Resources 📁</a></li>
+    <li><a href="#umhd">Mental Health ☂️</a></li>
+    <li><a class="vote-link" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">VOTE NOW</a></li>
   </ul>
 </nav>
 
-<!-- MANIFESTO -->
-<section id="manifesto">
-  <div class="section-label">Manifesto</div>
-  <h2 class="section-title">Three Priorities.<br>One Direction.</h2>
-  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; max-width:600px;">
-    Education should work for every student — not just those who already know how to navigate the system.
-  </p>
+<!-- ========================================= -->
+<!-- PAGE 1: HOME PAGE -->
+<!-- ========================================= -->
+<div id="home" class="page">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="moon"></div>
+    
+    <!-- Profile Photo -->
+    <img src="your-photo.jpg" alt="Zhixing Ren" style="width:160px; height:160px; border-radius:50%; object-fit:cover; position:relative; z-index:2; margin-bottom:1rem; border: 2px solid var(--red); box-shadow: 0 0 20px rgba(204,17,17,0.3);">
 
-  <div class="manifesto-grid">
-    <div class="manifesto-card">
-      <div class="card-num">01</div>
-      <div class="card-title">Making Policy Accessible</div>
-      <p class="card-text">Policies like Extenuating Circumstances and AI Declaration exist to protect students — but only if they understand them. I will push for clearer communication, with particular attention to international and non-native English speaking students.</p>
+    <div class="hero-content">
+      <p class="tagline">may i be the moon</p>
+      <h1 class="hero-name"><span>Z</span>HI<span>X</span>ING <span>R</span>EN</h1>
+      <p class="hero-role">VP Education 2026</p>
+      <p class="hero-quote">"Reflecting your voice. Lighting your way."</p>
     </div>
-    <div class="manifesto-card">
-      <div class="card-num">02</div>
-      <div class="card-title">Bridging the AI Gap</div>
-      <p class="card-text">The University has pushed AI forward — but how to use it, where, and to what extent remains unclear. I've built my own approach and want to be a student-University bridge, so students can use AI confidently and responsibly.</p>
-    </div>
-    <div class="manifesto-card">
-      <div class="card-num">03</div>
-      <div class="card-title">Supporting Students Who Struggle Quietly</div>
-      <p class="card-text">I took an interruption. For two years I was a student with special status at this University — and I found my way through. Once you've stood in the heavy rain, you want to share your umbrella with the next person who needs it.</p>
-    </div>
-  </div>
-</section>
-
-<div class="red-line"></div>
-
-<!-- RESOURCES -->
-<section id="resources">
-  <div class="section-label">Student Support Hub</div>
-  <h2 class="section-title">No More Searching.<br>Just Click.</h2>
-  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:3rem;">
-    Every link you need, right here. No jargon. No endless clicking through university pages.
-  </p>
-
-  <!-- EC -->
-  <div class="resource-group">
-    <div class="resource-group-title"><span class="icon">📋</span> Extenuating Circumstances (EC)</div>
-    <p class="resource-note" style="margin-bottom:0.8rem;">One central policy covers ALL faculties — Engineering, Arts, Science, Medicine, Social Sciences.</p>
-    <div class="resource-links">
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/services/extenuating-circumstances.aspx" target="_blank">
-        Main EC Page — Start Here <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/extenuating-circumstances/extenuating-circumstances-procedure.aspx" target="_blank">
-        EC Procedure — Steps, Timelines & Panels <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances" target="_blank">
-        SU Independent EC Advice (recommended) <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://student-enquiries.nottingham.ac.uk/faqs/article/FAQs-2421/en-us" target="_blank">
-        What Counts as EC? <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances/extenuating-circumstances-form" target="_blank">
-        Submit EC Form <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/ext-circumstances.aspx" target="_blank">
-        Formal EC Regulation (Quality Manual) <span class="arrow">↗</span>
-      </a>
+    
+    <div class="scroll-hint">
+      <span>Explore Pages</span>
+      <div class="scroll-line"></div>
     </div>
   </div>
 
-  <!-- AI -->
-  <div class="resource-group">
-    <div class="resource-group-title"><span class="icon">🤖</span> AI Guidelines</div>
-    <p class="resource-note" style="margin-bottom:0.8rem;">No single AI form exists — declarations are per assessment via your module handbook.</p>
-    <div class="resource-links">
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-assessment.aspx" target="_blank">
-        Using AI in Assessment — Start Here <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-support.aspx" target="_blank">
-        Using AI to Support Your Studies <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai.aspx" target="_blank">
-        AI at UoN — Overview <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/pol-academic-misconduct.aspx" target="_blank">
-        Academic Integrity Policy (includes AI) <span class="arrow">↗</span>
-      </a>
-    </div>
-    <div class="ai-tips">
-      <div class="ai-tips-title">🌙 How Zhixing Uses AI for Studying</div>
-      <div class="ai-tip"><span class="dot">▸</span><span><strong>Time management:</strong> Ask AI to break a large assignment into a week-by-week schedule.</span></div>
-      <div class="ai-tip"><span class="dot">▸</span><span><strong>Preview material:</strong> Paste a reading and ask for a plain-English summary before diving in.</span></div>
-      <div class="ai-tip"><span class="dot">▸</span><span><strong>Self-quiz:</strong> Ask AI to generate 10 practice questions from your lecture notes.</span></div>
-      <div class="ai-tip"><span class="dot">▸</span><span><strong>Mark-scheme check:</strong> Ask AI to evaluate your draft against published marking criteria.</span></div>
-      <div class="ai-tip"><span class="dot">▸</span><span><strong>Language support:</strong> Use AI for authentic translation of complex policy documents (declare where required).</span></div>
-    </div>
-  </div>
-
-  <!-- Disability & MH -->
-  <div class="resource-group">
-    <div class="resource-group-title"><span class="icon">💙</span> Disability & Mental Health Support</div>
-    <p class="resource-note" style="margin-bottom:0.8rem;">You don't need a formal diagnosis to ask for help. Reach out early.</p>
-    <div class="resource-links">
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/disability-support-services.aspx" target="_blank">
-        Disability Support Services <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/support-for-your-studies/reasonable-adjustments-and-support-plans.aspx" target="_blank">
-        Reasonable Adjustments & Support Plans <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/counselling/student-counselling/student-counselling.aspx" target="_blank">
-        Counselling Service <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/healthyu/mental-health/bodymind.aspx" target="_blank">
-        Mental Health & Wellbeing (HealthyU) <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/emergency-support.aspx" target="_blank">
-        Emergency & Crisis Support <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://su.nottingham.ac.uk/activities/view/disabled-students/" target="_blank">
-        Disabled Students' Network (SU) <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottinghamnightline.co.uk/" target="_blank">
-        Nottingham Nightline <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.samaritans.org/how-we-can-help/contact-samaritan/" target="_blank">
-        Samaritans — Call 116 123 (free, 24/7) <span class="arrow">↗</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Academic Misconduct -->
-  <div class="resource-group">
-    <div class="resource-group-title"><span class="icon">⚖️</span> Academic Misconduct Support</div>
-    <p class="resource-note" style="margin-bottom:0.8rem;">Don't panic. Don't face it alone. The SU advice team is independent from the University.</p>
-    <div class="resource-links">
-      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-misconduct" target="_blank">
-        SU Independent Advice — Start Here <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/appeals-complaints-and-conduct/academic-misconduct.aspx" target="_blank">
-        University Academic Misconduct Guidance <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/documents/appeals-misconduct-complaints/academic-misconduct-procedure-updated-may-2023-a.pdf" target="_blank">
-        Full Misconduct Procedure (PDF) <span class="arrow">↗</span>
-      </a>
-      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-appeals" target="_blank">
-        Academic Appeals — SU Advice <span class="arrow">↗</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="red-line"></div>
-
-<!-- UMHD -->
-<section id="umhd" style="padding-top:4rem;">
-  <div class="section-label">9–13 March 2026</div>
-  <h2 class="section-title">University Mental<br>Health Week</h2>
-  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:2rem;">
-    Theme: <strong style="color:var(--cream)">Human Connection</strong> — happening right during voting week. Come along, take a break, talk to someone.
-  </p>
-
-  <table class="umhd-table">
-    <thead>
-      <tr>
-        <th>Date & Time</th>
-        <th>Event</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Mon/Wed/Thu 9am–4pm<br>Tue/Fri 9am–12pm</td>
-        <td>🥽 VR Calm Experience — drop in anytime</td>
-        <td>ESLC A01</td>
-      </tr>
-      <tr>
-        <td>Wed 11 Mar, 11:30–13:30</td>
-        <td>🐾 Therapy Dogs: Bertie & Ruby</td>
-        <td>ESLC A01</td>
-      </tr>
-      <tr>
-        <td>Wed 11 Mar, 13:30–14:30</td>
-        <td>🚶 Wellbeing Walk — Highfields Lake</td>
-        <td>Lakeside Café</td>
-      </tr>
-      <tr>
-        <td>Thu 12 Mar, 11:00–15:00</td>
-        <td>☕ Hot Chocolate & Marshmallows</td>
-        <td>ESLC Atrium</td>
-      </tr>
-      <tr>
-        <td>Thu 12 Mar, 11:00–15:00</td>
-        <td>🎲 Biscuits & Board Games</td>
-        <td>ESLC Atrium</td>
-      </tr>
-      <tr>
-        <td>Thu 12 Mar, 11:00–15:00</td>
-        <td>🌱 Seed Planting & Pot Decorating</td>
-        <td>ESLC Atrium</td>
-      </tr>
-      <tr>
-        <td>Thu 12 Mar, 11:00–15:00</td>
-        <td>💰 Money Matters — Financial Wellbeing</td>
-        <td>ESLC Atrium</td>
-      </tr>
-      <tr>
-        <td>Thu 12 Mar, 11:00–14:00</td>
-        <td>🍕 Wellbeing Café — free pizza & crafts</td>
-        <td>Portland Building B Floor</td>
-      </tr>
-      <tr>
-        <td>Ongoing, 2–27 Mar</td>
-        <td>📸 Offline Moments Competition — win £30!</td>
-        <td><a href="https://padlet.com/uonhealthyu/offline-moments-1b1pnq5796ocbs3m" target="_blank" style="color:var(--red);">Enter here ↗</a></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top:1.5rem;">
-    <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/healthyu/umhd.aspx" target="_blank" style="display:inline-flex; max-width:400px;">
-      All UMHD 2026 Events → <span class="arrow" style="opacity:1;">↗</span>
+  <!-- SUBPAGES NAVIGATION MENU -->
+  <div class="home-nav-grid">
+    <!-- Subpage 1 Link -->
+    <a href="#accessibility" class="home-nav-card">
+      <div class="icon">🔑</div>
+      <h3>Accessible Policies</h3>
+      <p>My manifesto and vision for clear, understandable rules.</p>
     </a>
-  </p>
-</section>
+    
+    <!-- Subpage 2 Link -->
+    <a href="#resources" class="home-nav-card">
+      <div class="icon">📁</div>
+      <h3>All Resources</h3>
+      <p>The Student Support Hub. No more searching, just click.</p>
+    </a>
+    
+    <!-- Subpage 3 Link -->
+    <a href="#umhd" class="home-nav-card">
+      <div class="icon">☂️</div>
+      <h3>Mental Health Day</h3>
+      <p>Stay under the umbrella. A guide to UMHD 2026 events.</p>
+    </a>
+  </div>
 
-<div class="red-line"></div>
+  <div class="red-line"></div>
 
-<!-- VOTE -->
-<div class="vote-section" id="vote">
-  <div class="vote-moon"></div>
-  <p class="vote-quote">"Once you've stood in the heavy rain,<br>you want to share your umbrella<br>with the next person who needs it."</p>
-  <p class="vote-sub">Spring Elections 2026 — VP Education</p>
-  <a class="vote-cta" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
-    <span>Vote for Zhixing Ren</span>
-  </a>
-  
-  <!-- Countdown Timer -->
-  <p id="countdown-timer" style="margin-top: 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--red); letter-spacing: 0.1em;"></p>
-  
-  <p class="vote-dates">Voting open: Monday 9 March 10:00 — Friday 13 March 12:00</p>
+  <!-- VOTE SECTION -->
+  <div class="vote-section">
+    <div class="vote-moon"></div>
+    <p class="vote-quote">"Once you've stood in the heavy rain,<br>you want to share your umbrella<br>with the next person who needs it."</p>
+    <p class="vote-sub">Spring Elections 2026 — VP Education</p>
+    <a class="vote-cta" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
+      <span>Vote for Zhixing Ren</span>
+    </a>
+    
+    <!-- Countdown Timer -->
+    <p id="countdown-timer" style="margin-top: 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--red); letter-spacing: 0.1em;"></p>
+    
+    <p class="vote-dates">Voting open: Monday 9 March 10:00 — Friday 13 March 12:00</p>
+  </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ========================================= -->
+<!-- PAGE 2: ACCESSIBILITY (MANIFESTO) -->
+<!-- ========================================= -->
+<div id="accessibility" class="page">
+  <div class="back-btn-container">
+    <a href="#home" class="back-btn">← Back to Main Page</a>
+  </div>
+  
+  <section>
+    <div class="section-label">Manifesto & Vision 🔑</div>
+    <h2 class="section-title">Three Priorities.<br>One Direction.</h2>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; max-width:600px;">
+      Education should work for every student — not just those who already know how to navigate the system.
+    </p>
+
+    <div class="manifesto-grid">
+      <div class="manifesto-card">
+        <div class="card-num">01</div>
+        <div class="card-title">Making Policy Accessible</div>
+        <p class="card-text">Policies like Extenuating Circumstances and AI Declaration exist to protect students — but only if they understand them. I will push for clearer communication, with particular attention to international and non-native English speaking students.</p>
+      </div>
+      <div class="manifesto-card">
+        <div class="card-num">02</div>
+        <div class="card-title">Bridging the AI Gap</div>
+        <p class="card-text">The University has pushed AI forward — but how to use it, where, and to what extent remains unclear. I've built my own approach and want to be a student-University bridge, so students can use AI confidently and responsibly.</p>
+      </div>
+      <div class="manifesto-card">
+        <div class="card-num">03</div>
+        <div class="card-title">Supporting Students Who Struggle Quietly</div>
+        <p class="card-text">I took an interruption. For two years I was a student with special status at this University — and I found my way through. Once you've stood in the heavy rain, you want to share your umbrella with the next person who needs it.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 3: RESOURCES -->
+<!-- ========================================= -->
+<div id="resources" class="page">
+  <div class="back-btn-container">
+    <a href="#home" class="back-btn">← Back to Main Page</a>
+  </div>
+
+  <section>
+    <div class="section-label">Student Support Hub 📁</div>
+    <h2 class="section-title">No More Searching.<br>Just Click.</h2>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:3rem;">
+      Every link you need, right here. No jargon. No endless clicking through university pages.
+    </p>
+
+    <!-- EC -->
+    <div class="resource-group">
+      <div class="resource-group-title"><span class="icon">📋</span> Extenuating Circumstances (EC)</div>
+      <p class="resource-note" style="margin-bottom:0.8rem;">One central policy covers ALL faculties — Engineering, Arts, Science, Medicine, Social Sciences.</p>
+      <div class="resource-links">
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/services/extenuating-circumstances.aspx" target="_blank">
+          Main EC Page — Start Here <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/extenuating-circumstances/extenuating-circumstances-procedure.aspx" target="_blank">
+          EC Procedure — Steps, Timelines & Panels <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances" target="_blank">
+          SU Independent EC Advice (recommended) <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://student-enquiries.nottingham.ac.uk/faqs/article/FAQs-2421/en-us" target="_blank">
+          What Counts as EC? <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances/extenuating-circumstances-form" target="_blank">
+          Submit EC Form <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/ext-circumstances.aspx" target="_blank">
+          Formal EC Regulation (Quality Manual) <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div class="resource-group">
+      <div class="resource-group-title"><span class="icon">🤖</span> AI Guidelines</div>
+      <p class="resource-note" style="margin-bottom:0.8rem;">No single AI form exists — declarations are per assessment via your module handbook.</p>
+      <div class="resource-links">
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-assessment.aspx" target="_blank">
+          Using AI in Assessment — Start Here <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-support.aspx" target="_blank">
+          Using AI to Support Your Studies <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai.aspx" target="_blank">
+          AI at UoN — Overview <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/pol-academic-misconduct.aspx" target="_blank">
+          Academic Integrity Policy (includes AI) <span class="arrow">↗</span>
+        </a>
+      </div>
+      <div class="ai-tips">
+        <div class="ai-tips-title">🌙 How Zhixing Uses AI for Studying</div>
+        <div class="ai-tip"><span class="dot">▸</span><span><strong>Time management:</strong> Ask AI to break a large assignment into a week-by-week schedule.</span></div>
+        <div class="ai-tip"><span class="dot">▸</span><span><strong>Preview material:</strong> Paste a reading and ask for a plain-English summary before diving in.</span></div>
+        <div class="ai-tip"><span class="dot">▸</span><span><strong>Self-quiz:</strong> Ask AI to generate 10 practice questions from your lecture notes.</span></div>
+        <div class="ai-tip"><span class="dot">▸</span><span><strong>Mark-scheme check:</strong> Ask AI to evaluate your draft against published marking criteria.</span></div>
+        <div class="ai-tip"><span class="dot">▸</span><span><strong>Language support:</strong> Use AI for authentic translation of complex policy documents (declare where required).</span></div>
+      </div>
+    </div>
+
+    <!-- Disability & MH -->
+    <div class="resource-group">
+      <div class="resource-group-title"><span class="icon">💙</span> Disability Support</div>
+      <p class="resource-note" style="margin-bottom:0.8rem;">You don't need a formal diagnosis to ask for help. Reach out early.</p>
+      <div class="resource-links">
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/disability-support-services.aspx" target="_blank">
+          Disability Support Services <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/support-for-your-studies/reasonable-adjustments-and-support-plans.aspx" target="_blank">
+          Reasonable Adjustments & Support Plans <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/counselling/student-counselling/student-counselling.aspx" target="_blank">
+          Counselling Service <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://su.nottingham.ac.uk/activities/view/disabled-students/" target="_blank">
+          Disabled Students' Network (SU) <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Academic Misconduct -->
+    <div class="resource-group">
+      <div class="resource-group-title"><span class="icon">⚖️</span> Academic Misconduct</div>
+      <p class="resource-note" style="margin-bottom:0.8rem;">Don't panic. Don't face it alone. The SU advice team is independent from the University.</p>
+      <div class="resource-links">
+        <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-misconduct" target="_blank">
+          SU Independent Advice — Start Here <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/appeals-complaints-and-conduct/academic-misconduct.aspx" target="_blank">
+          University Academic Misconduct Guidance <span class="arrow">↗</span>
+        </a>
+        <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-appeals" target="_blank">
+          Academic Appeals — SU Advice <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 4: MENTAL HEALTH (UMHD) -->
+<!-- ========================================= -->
+<div id="umhd" class="page">
+  <div class="back-btn-container">
+    <a href="#home" class="back-btn">← Back to Main Page</a>
+  </div>
+
+  <section>
+    <div class="section-label">Under the Umbrella ☂️</div>
+    <h2 class="section-title">University Mental<br>Health Week</h2>
+    <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:2rem;">
+      Theme: <strong style="color:var(--cream)">Human Connection</strong> — happening right during voting week (9–13 March 2026). Come along, take a break, talk to someone.
+    </p>
+
+    <table class="umhd-table">
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Event</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mon/Wed/Thu 9am–4pm<br>Tue/Fri 9am–12pm</td>
+          <td>🥽 VR Calm Experience — drop in anytime</td>
+          <td>ESLC A01</td>
+        </tr>
+        <tr>
+          <td>Wed 11 Mar, 11:30–13:30</td>
+          <td>🐾 Therapy Dogs: Bertie & Ruby</td>
+          <td>ESLC A01</td>
+        </tr>
+        <tr>
+          <td>Wed 11 Mar, 13:30–14:30</td>
+          <td>🚶 Wellbeing Walk — Highfields Lake</td>
+          <td>Lakeside Café</td>
+        </tr>
+        <tr>
+          <td>Thu 12 Mar, 11:00–15:00</td>
+          <td>☕ Hot Chocolate & Marshmallows</td>
+          <td>ESLC Atrium</td>
+        </tr>
+        <tr>
+          <td>Thu 12 Mar, 11:00–15:00</td>
+          <td>🎲 Biscuits & Board Games</td>
+          <td>ESLC Atrium</td>
+        </tr>
+        <tr>
+          <td>Thu 12 Mar, 11:00–15:00</td>
+          <td>🌱 Seed Planting & Pot Decorating</td>
+          <td>ESLC Atrium</td>
+        </tr>
+        <tr>
+          <td>Thu 12 Mar, 11:00–14:00</td>
+          <td>🍕 Wellbeing Café — free pizza & crafts</td>
+          <td>Portland Building B Floor</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:2rem;">
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/healthyu/umhd.aspx" target="_blank" style="display:inline-flex; max-width:400px;">
+        View All UMHD 2026 Events → <span class="arrow" style="opacity:1;">↗</span>
+      </a>
+    </p>
+  </section>
+</div>
+
+<!-- ========================================= -->
+<!-- GLOBAL FOOTER -->
+<!-- ========================================= -->
 <footer>
   <p>Zhixing Ren — VP Education Candidate, Spring Elections 2026</p>
   <p style="margin-top:0.5rem;">
@@ -851,12 +930,43 @@
   </p>
 </footer>
 
-<!-- JavaScript for Countdown -->
+<!-- ========================================= -->
+<!-- SCRIPTS -->
+<!-- ========================================= -->
 <script>
-  const voteStartDate = new Date('March 9, 2026 10:00:00').getTime();
-  const timerElement = document.getElementById('countdown-timer');
+  /* ── 1. SPA HASH ROUTING (Subpage Navigation) ── */
+  function handleRouting() {
+    // Get the hash from the URL (e.g., #resources), default to #home
+    let hash = window.location.hash || '#home';
+    
+    // Hide all pages by removing the 'active' class
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active');
+    });
+    
+    // Try to find the page matching the hash
+    const targetPage = document.querySelector(hash);
+    
+    if (targetPage) {
+      targetPage.classList.add('active'); // Show target page
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+    } else {
+      document.getElementById('home').classList.add('active'); // Fallback to home
+    }
+  }
 
+  // Listen for navigation clicks (Hash Changes)
+  window.addEventListener('hashchange', handleRouting);
+  // Run on first load
+  window.addEventListener('load', handleRouting);
+
+  /* ── 2. COUNTDOWN TIMER ── */
+  const voteStartDate = new Date('March 9, 2026 10:00:00').getTime();
+  
   const timerInterval = setInterval(() => {
+    const timerElement = document.getElementById('countdown-timer');
+    if (!timerElement) return; // Prevent error if timer is missing
+
     const now = new Date().getTime();
     const distance = voteStartDate - now;
     
