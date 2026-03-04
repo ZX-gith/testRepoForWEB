@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zhixing Ren — VP Education 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --deep: #111111;
+    --red: #CC1111;
+    --red-bright: #E01818;
+    --cream: #F5EDD6;
+    --white: #FFFFFF;
+    --grey: #888888;
+    --moon: #F7E8C0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 60%, rgba(204,17,17,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Moon */
+  .moon {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, var(--moon) 0%, #E8C870 40%, #B8922A 80%, #7A5A10 100%);
+    box-shadow:
+      0 0 60px rgba(247,232,192,0.15),
+      0 0 120px rgba(247,232,192,0.06),
+      inset -30px -20px 60px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.12;
+    animation: moonPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes moonPulse {
+    0%, 100% { opacity: 0.12; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.18; transform: translate(-50%, -50%) scale(1.03); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--grey);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 1.2s 0.3s ease both;
+  }
+
+  .hero-name span { color: var(--red); }
+
+  .hero-role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 2.8rem);
+    letter-spacing: 0.3em;
+    color: var(--red);
+    margin-bottom: 2rem;
+    animation: fadeUp 1.2s 0.4s ease both;
+  }
+
+  .hero-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--cream);
+    opacity: 0.8;
+    margin-bottom: 3rem;
+    animation: fadeUp 1.2s 0.5s ease both;
+  }
+
+  .vote-badge {
+    display: inline-block;
+    border: 1px solid var(--red);
+    padding: 0.8rem 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    animation: fadeUp 1.2s 0.6s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vote-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .vote-badge:hover { color: var(--white); }
+  .vote-badge:hover::before { transform: translateX(0); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.4;
+    animation: fadeUp 1.2s 1s ease both;
+  }
+
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--grey), transparent);
+    animation: scrollDrop 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDrop {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(204,17,17,0.2);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+  }
+
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(204,17,17,0.3);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px;
+    margin-top: 3rem;
+    background: rgba(204,17,17,0.15);
+  }
+
+  .manifesto-card {
+    background: var(--deep);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .manifesto-card:hover { background: #161616; }
+
+  .manifesto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--red);
+    transition: height 0.4s ease;
+  }
+
+  .manifesto-card:hover::before { height: 100%; }
+
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: rgba(204,17,17,0.15);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+  }
+
+  /* ── RESOURCES ── */
+  #resources { padding-top: 0; }
+
+  .resource-group {
+    margin-bottom: 3rem;
+  }
+
+  .resource-group-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .resource-group-title .icon { font-size: 1.2rem; }
+
+  .resource-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .resource-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.2rem;
+    background: var(--deep);
+    text-decoration: none;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+    font-weight: 300;
+    transition: all 0.25s ease;
+    border-left: 2px solid transparent;
+    gap: 1rem;
+  }
+
+  .resource-link:hover {
+    border-left-color: var(--red);
+    background: #161616;
+    color: var(--white);
+    padding-left: 1.6rem;
+  }
+
+  .resource-link .arrow {
+    color: var(--red);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .resource-link:hover .arrow { opacity: 1; }
+
+  .resource-note {
+    font-size: 0.75rem;
+    color: var(--grey);
+    font-style: italic;
+    margin-top: 0.8rem;
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ── AI TIPS ── */
+  .ai-tips {
+    background: var(--deep);
+    border: 1px solid rgba(204,17,17,0.2);
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+
+  .ai-tips-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+  }
+
+  .ai-tip {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .ai-tip .dot {
+    color: var(--red);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  /* ── UMHD TABLE ── */
+  .umhd-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-top: 1rem;
+  }
+
+  .umhd-table th {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    background: rgba(204,17,17,0.15);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .umhd-table td {
+    padding: 0.8rem 1rem;
+    color: rgba(255,255,255,0.65);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-weight: 300;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  .umhd-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── VOTE SECTION ── */
+  .vote-section {
+    text-align: center;
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vote-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 50% 50%, rgba(204,17,17,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .vote-moon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, var(--moon) 0%, #E8C870 40%, #B8922A 80%, #7A5A10 100%);
+    box-shadow: 0 0 40px rgba(247,232,192,0.2), inset -15px -10px 30px rgba(0,0,0,0.5);
+    margin: 0 auto 2.5rem;
+    animation: moonPulse 6s ease-in-out infinite;
+  }
+
+  .vote-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .vote-sub {
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  .vote-cta {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    padding: 1.1rem 3.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vote-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red-bright);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+
+  .vote-cta:hover::before { transform: translateX(0); }
+  .vote-cta span { position: relative; z-index: 1; }
+
+  .vote-dates {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 0.15em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--grey);
+    letter-spacing: 0.15em;
+  }
+
+  footer a { color: var(--red); text-decoration: none; }
+
+  /* ── DIVIDER ── */
+  .red-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(204,17,17,0.4), transparent);
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .manifesto-grid { grid-template-columns: 1fr; }
+    .umhd-table { font-size: 0.75rem; }
+    .umhd-table th, .umhd-table td { padding: 0.6rem 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="moon"></div>
+  <div class="hero-content">
+    <p class="tagline">may i be the moon</p>
+    <h1 class="hero-name"><span>Z</span>HI<span>X</span>ING <span>R</span>EN</h1>
+    <p class="hero-role">VP Education 2026</p>
+    <p class="hero-quote">"Reflecting your voice. Lighting your way."</p>
+    <a class="vote-badge" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
+      Vote 9–13 March →
+    </a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>Z</span>HIXING REN</div>
+  <ul class="nav-links">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#umhd">Mental Health Week</a></li>
+    <li><a href="#vote">Vote</a></li>
+  </ul>
+</nav>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="section-label">Manifesto</div>
+  <h2 class="section-title">Three Priorities.<br>One Direction.</h2>
+  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; max-width:600px;">
+    Education should work for every student — not just those who already know how to navigate the system.
+  </p>
+
+  <div class="manifesto-grid">
+    <div class="manifesto-card">
+      <div class="card-num">01</div>
+      <div class="card-title">Making Policy Accessible</div>
+      <p class="card-text">Policies like Extenuating Circumstances and AI Declaration exist to protect students — but only if they understand them. I will push for clearer communication, with particular attention to international and non-native English speaking students.</p>
+    </div>
+    <div class="manifesto-card">
+      <div class="card-num">02</div>
+      <div class="card-title">Bridging the AI Gap</div>
+      <p class="card-text">The University has pushed AI forward — but how to use it, where, and to what extent remains unclear. I've built my own approach and want to be a student-University bridge, so students can use AI confidently and responsibly.</p>
+    </div>
+    <div class="manifesto-card">
+      <div class="card-num">03</div>
+      <div class="card-title">Supporting Students Who Struggle Quietly</div>
+      <p class="card-text">I took an interruption. For two years I was a student with special status at this University — and I found my way through. Once you've stood in the heavy rain, you want to share your umbrella with the next person who needs it.</p>
+    </div>
+  </div>
+</section>
+
+<div class="red-line"></div>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-label">Student Support Hub</div>
+  <h2 class="section-title">No More Searching.<br>Just Click.</h2>
+  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:3rem;">
+    Every link you need, right here. No jargon. No endless clicking through university pages.
+  </p>
+
+  <!-- EC -->
+  <div class="resource-group">
+    <div class="resource-group-title"><span class="icon">📋</span> Extenuating Circumstances (EC)</div>
+    <p class="resource-note" style="margin-bottom:0.8rem;">One central policy covers ALL faculties — Engineering, Arts, Science, Medicine, Social Sciences.</p>
+    <div class="resource-links">
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/services/extenuating-circumstances.aspx" target="_blank">
+        Main EC Page — Start Here <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/extenuating-circumstances/extenuating-circumstances-procedure.aspx" target="_blank">
+        EC Procedure — Steps, Timelines & Panels <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances" target="_blank">
+        SU Independent EC Advice (recommended) <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://student-enquiries.nottingham.ac.uk/faqs/article/FAQs-2421/en-us" target="_blank">
+        What Counts as EC? <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/extenuating-circumstances/extenuating-circumstances-form" target="_blank">
+        Submit EC Form <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/ext-circumstances.aspx" target="_blank">
+        Formal EC Regulation (Quality Manual) <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- AI -->
+  <div class="resource-group">
+    <div class="resource-group-title"><span class="icon">🤖</span> AI Guidelines</div>
+    <p class="resource-note" style="margin-bottom:0.8rem;">No single AI form exists — declarations are per assessment via your module handbook.</p>
+    <div class="resource-links">
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-assessment.aspx" target="_blank">
+        Using AI in Assessment — Start Here <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai-support.aspx" target="_blank">
+        Using AI to Support Your Studies <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studyingeffectively/ai/ai.aspx" target="_blank">
+        AI at UoN — Overview <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/qualitymanual/assessment-awards-and-deg-classification/pol-academic-misconduct.aspx" target="_blank">
+        Academic Integrity Policy (includes AI) <span class="arrow">↗</span>
+      </a>
+    </div>
+    <div class="ai-tips">
+      <div class="ai-tips-title">🌙 How Zhixing Uses AI for Studying</div>
+      <div class="ai-tip"><span class="dot">▸</span><span><strong>Time management:</strong> Ask AI to break a large assignment into a week-by-week schedule.</span></div>
+      <div class="ai-tip"><span class="dot">▸</span><span><strong>Preview material:</strong> Paste a reading and ask for a plain-English summary before diving in.</span></div>
+      <div class="ai-tip"><span class="dot">▸</span><span><strong>Self-quiz:</strong> Ask AI to generate 10 practice questions from your lecture notes.</span></div>
+      <div class="ai-tip"><span class="dot">▸</span><span><strong>Mark-scheme check:</strong> Ask AI to evaluate your draft against published marking criteria.</span></div>
+      <div class="ai-tip"><span class="dot">▸</span><span><strong>Language support:</strong> Use AI for authentic translation of complex policy documents (declare where required).</span></div>
+    </div>
+  </div>
+
+  <!-- Disability & MH -->
+  <div class="resource-group">
+    <div class="resource-group-title"><span class="icon">💙</span> Disability & Mental Health Support</div>
+    <p class="resource-note" style="margin-bottom:0.8rem;">You don't need a formal diagnosis to ask for help. Reach out early.</p>
+    <div class="resource-links">
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/disability-support-services.aspx" target="_blank">
+        Disability Support Services <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/disability-support-services/support-for-your-studies/reasonable-adjustments-and-support-plans.aspx" target="_blank">
+        Reasonable Adjustments & Support Plans <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/counselling/student-counselling/student-counselling.aspx" target="_blank">
+        Counselling Service <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/healthyu/mental-health/bodymind.aspx" target="_blank">
+        Mental Health & Wellbeing (HealthyU) <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/emergency-support.aspx" target="_blank">
+        Emergency & Crisis Support <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://su.nottingham.ac.uk/activities/view/disabled-students/" target="_blank">
+        Disabled Students' Network (SU) <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottinghamnightline.co.uk/" target="_blank">
+        Nottingham Nightline <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.samaritans.org/how-we-can-help/contact-samaritan/" target="_blank">
+        Samaritans — Call 116 123 (free, 24/7) <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Academic Misconduct -->
+  <div class="resource-group">
+    <div class="resource-group-title"><span class="icon">⚖️</span> Academic Misconduct Support</div>
+    <p class="resource-note" style="margin-bottom:0.8rem;">Don't panic. Don't face it alone. The SU advice team is independent from the University.</p>
+    <div class="resource-links">
+      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-misconduct" target="_blank">
+        SU Independent Advice — Start Here <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/servicedetails/appeals-complaints-and-conduct/academic-misconduct.aspx" target="_blank">
+        University Academic Misconduct Guidance <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/documents/appeals-misconduct-complaints/academic-misconduct-procedure-updated-may-2023-a.pdf" target="_blank">
+        Full Misconduct Procedure (PDF) <span class="arrow">↗</span>
+      </a>
+      <a class="resource-link" href="https://su.nottingham.ac.uk/advice/help-with-your-course/academic-appeals" target="_blank">
+        Academic Appeals — SU Advice <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="red-line"></div>
+
+<!-- UMHD -->
+<section id="umhd" style="padding-top:4rem;">
+  <div class="section-label">9–13 March 2026</div>
+  <h2 class="section-title">University Mental<br>Health Week</h2>
+  <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; font-weight:300; line-height:1.8; margin-bottom:2rem;">
+    Theme: <strong style="color:var(--cream)">Human Connection</strong> — happening right during voting week. Come along, take a break, talk to someone.
+  </p>
+
+  <table class="umhd-table">
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>Event</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Mon/Wed/Thu 9am–4pm<br>Tue/Fri 9am–12pm</td>
+        <td>🥽 VR Calm Experience — drop in anytime</td>
+        <td>ESLC A01</td>
+      </tr>
+      <tr>
+        <td>Wed 11 Mar, 11:30–13:30</td>
+        <td>🐾 Therapy Dogs: Bertie & Ruby</td>
+        <td>ESLC A01</td>
+      </tr>
+      <tr>
+        <td>Wed 11 Mar, 13:30–14:30</td>
+        <td>🚶 Wellbeing Walk — Highfields Lake</td>
+        <td>Lakeside Café</td>
+      </tr>
+      <tr>
+        <td>Thu 12 Mar, 11:00–15:00</td>
+        <td>☕ Hot Chocolate & Marshmallows</td>
+        <td>ESLC Atrium</td>
+      </tr>
+      <tr>
+        <td>Thu 12 Mar, 11:00–15:00</td>
+        <td>🎲 Biscuits & Board Games</td>
+        <td>ESLC Atrium</td>
+      </tr>
+      <tr>
+        <td>Thu 12 Mar, 11:00–15:00</td>
+        <td>🌱 Seed Planting & Pot Decorating</td>
+        <td>ESLC Atrium</td>
+      </tr>
+      <tr>
+        <td>Thu 12 Mar, 11:00–15:00</td>
+        <td>💰 Money Matters — Financial Wellbeing</td>
+        <td>ESLC Atrium</td>
+      </tr>
+      <tr>
+        <td>Thu 12 Mar, 11:00–14:00</td>
+        <td>🍕 Wellbeing Café — free pizza & crafts</td>
+        <td>Portland Building B Floor</td>
+      </tr>
+      <tr>
+        <td>Ongoing, 2–27 Mar</td>
+        <td>📸 Offline Moments Competition — win £30!</td>
+        <td><a href="https://padlet.com/uonhealthyu/offline-moments-1b1pnq5796ocbs3m" target="_blank" style="color:var(--red);">Enter here ↗</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:1.5rem;">
+    <a class="resource-link" href="https://www.nottingham.ac.uk/studentservices/wellbeing/healthyu/umhd.aspx" target="_blank" style="display:inline-flex; max-width:400px;">
+      All UMHD 2026 Events → <span class="arrow" style="opacity:1;">↗</span>
+    </a>
+  </p>
+</section>
+
+<div class="red-line"></div>
+
+<!-- VOTE -->
+<div class="vote-section" id="vote">
+  <div class="vote-moon"></div>
+  <p class="vote-quote">"Once you've stood in the heavy rain,<br>you want to share your umbrella<br>with the next person who needs it."</p>
+  <p class="vote-sub">Spring Elections 2026 — VP Education</p>
+  <a class="vote-cta" href="https://su.nottingham.ac.uk/officer-elections" target="_blank">
+    <span>Vote for Zhixing Ren</span>
+  </a>
+  <p class="vote-dates">Voting open: Monday 9 March 10:00 — Friday 13 March 12:00</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Zhixing Ren — VP Education Candidate, Spring Elections 2026</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://su.nottingham.ac.uk/officer-elections" target="_blank">su.nottingham.ac.uk</a>
+    &nbsp;·&nbsp; 🌙 Be the moon.
+  </p>
+</footer>
+
+</body>
+</html>
